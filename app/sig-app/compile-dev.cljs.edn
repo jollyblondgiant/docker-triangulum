@@ -1,0 +1,8 @@
+{:main            "sig-app.client"
+ :output-dir      "target/public/cljs"
+ :output-to       "target/public/cljs/app.js"
+ :target          :bundle
+ :optimizations   :none
+ :pretty-print    false
+ :closure-defines {"goog.DEBUG"       false
+                   cljs.core/*global* "window"}}

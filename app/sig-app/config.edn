@@ -1,0 +1,18 @@
+{:triangulum.server/http-port 8080
+ :triangulum.server/nrepl-port  9001
+ :triangulum.server/nrepl-bind  "127.0.0.1"
+ :triangulum.server/nrepl       false
+ :triangulum.server/cider-nrepl false
+ :triangulum.server/mode "dev" 
+ :triangulum.server/log-dir ""
+   
+ :triangulum.handler/routing-tables [sig-app.routing/routes]
+ :triangulum.server/handler     triangulum.handler/authenticated-routing-handler
+
+
+ :triangulum.views/title {:en "SIG APP"}
+ :triangulum.views/description {:en ""}
+ :triangulum.views/js-init "src/js/main.jsx"
+;; :triangulum.views/cljs-init sig-app.client.init
+
+ }

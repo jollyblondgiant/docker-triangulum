@@ -1,0 +1,17 @@
+{:paths ["src/clj" "src/cljs" "target" "resources"]
+ :deps {sig-gis/triangulum {:git/url "http://github.com/sig-gis/triangulum"
+                            :git/sha "3d41dab63e1bc8ebe046f64db44ae3df986f5bdf"}
+        reagent/reagent           {:mvn/version "1.2.0"}
+        re-frame/re-frame         {:mvn/version "1.4.3"}
+        nrepl/nrepl                     {:mvn/version "0.8.3"}
+        cider/cider-nrepl               {:mvn/version "0.50.2"}
+        cider/piggieback                {:mvn/version "0.5.3"}
+        com.bhauman/figwheel-main {:mvn/version "0.2.20"}
+        
+        com.bhauman/rebel-readline-cljs {:mvn/version "0.1.4"}
+        org.clojure/clojure       {:mvn/version "1.11.2"}
+        org.clojure/clojurescript {:mvn/version "1.11.132"}}
+ :aliases {:server ;; clojure -M:server start
+           {:main-opts ["-m" "triangulum.server"]}
+           :figwheel ;; clojure -M:figwheel
+           {:main-opts  ["-m" "figwheel.main" "-b" "compile-dev" "-r"]}}}
