@@ -13,10 +13,11 @@
  :triangulum.handler/redirect-handler      sig-app.handlers/redirect-handler
  :triangulum.handler/route-authenticator   sig-app.handlers/route-authenticator
 
+ :triangulum.response/response-type   :json
  
  :triangulum.views/title {:en "SIG APP"}
  :triangulum.views/description {:en ""}
- ;; :triangulum.views/js-init "src/js/main.jsx"
- :triangulum.views/cljs-init sig-app.client.init
+ :triangulum.views/js-init "src/js/main.jsx"
+ ;; :triangulum.views/cljs-init sig-app.client.init
 
  }

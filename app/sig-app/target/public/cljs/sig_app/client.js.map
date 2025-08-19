@@ -1,1 +1,0 @@
-{"version":3,"file":"\/home\/andrew\/sig\/docker-nginx\/app\/sig-app\/target\/public\/cljs\/sig_app\/client.js","sources":["client.cljs"],"lineCount":10,"mappings":";AAAA;;;AAGA,sBAAA,tBAAeA,oDAAMC,OAAOC;AAA5B,AACE,oCAAA,7BAACC,8DAAU,wBAAA,xBAACC","names":["sig-app.client\/init","params","session","reagent.dom\/render","js\/document.getElementById"]}
