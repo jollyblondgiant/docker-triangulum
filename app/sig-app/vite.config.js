@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import svgr from "vite-plugin-svgr";
-import react from "@vitejs/plugin-react";
+// import svgr from "vite-plugin-svgr";
+// import react from "@vitejs/plugin-react";
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 // import babel from "@rollup/plugin-babel";
@@ -12,7 +12,7 @@ export default defineConfig({
     origin: "http://127.0.0.1:8080",
     hmr: {
       overlay: false,
-      nodePolyfills,
+      // nodePolyfills,
     },
   },
   build: {
@@ -21,36 +21,13 @@ export default defineConfig({
     manifest: true,
     sourcemap: true,
     plugins: [
-      nodePolyfills()
+      // nodePolyfills()
              ],
     rollupOptions: {
       external: ["react-dom/client"],
       preserveEntrySignatures: "exports-only",
-      input: [
-        "src/js/about.jsx",
-        "src/js/account.jsx",
-        "src/js/collection.jsx",
-        "src/js/createInstitution.jsx",
-        "src/js/geoDash.jsx",
-        "src/js/geoDashHelp.jsx",
-        "src/js/home.jsx",
-        "src/js/institutionDashboard.jsx",
-        "src/js/login.jsx",
-        "src/js/pageNotFound.jsx",
-        "src/js/passwordReset.jsx",
-        "src/js/passwordRequest.jsx",
-        "src/js/projectAdmin.jsx",
-        "src/js/projectDashboard.jsx",
-        "src/js/register.jsx",
-        "src/js/reviewInstitution.jsx",
-        "src/js/simpleCollection.jsx",
-        "src/js/support.jsx",
-        "src/js/termsOfService.jsx",
-        "src/js/userDisagreement.jsx",
-        "src/js/verifyEmail.jsx",
-        "src/js/widgetLayoutEditor.jsx",
-        "src/js/metrics.jsx",
-        "src/js/projectQaqcDashboard.jsx"
+      input: [        
+        "src/js/main.jsx"
       ],
       output: {
         // compact: false,
@@ -63,27 +40,30 @@ export default defineConfig({
     },
   },
   plugins: [
-    svgr({
-      exportAsDefault: true,
-      enforce: 'pre',
-      include: '**/*.svg',
-      svgrOptions: {
-        ref: true
+//
+ //   svgr({
+  //    exportAsDefault: true,
+//      enforce: 'pre',
+ //     include: '**/*.svg',
+  //    svgrOptions: {
+    //    ref: true
         // optionally add more svgr config here
-      }
-    }),
-    nodePolyfills(),
-    react({
-      fastRefresh: true,
-      jsxImportSource: "@emotion/react",
-      presets: ["@babel/preset-env", "@babel/preset-react"],
-      plugins: [
+   //   }
+  //  }),
+
+    // nodePolyfills(),
+    // react({
+      // fastRefresh: true,
+      // jsxImportSource: "@emotion/react",
+      // presets: ["@babel/preset-env", "@babel/preset-react"],
+      // plugins: [
         // "@vitejs/plugin-react",
-        "@babel/plugin-proposal-class-properties",
-        "@babel/plugin-transform-runtime",
-        "babel-plugin-macros",
-        "@emotion",
-      ],
-    }),
+        // "@babel/plugin-proposal-class-properties",
+        // "@babel/plugin-transform-runtime",
+        // "babel-plugin-macros",
+        // "@emotion",
+      // ],
+    // }),
   ],
+
 });
