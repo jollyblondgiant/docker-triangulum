@@ -3,7 +3,7 @@ export function pageInit(params, session) {
   if (!rootElement.innerHTML){
     const root = ReactDOM.createRoot(rootElement);
     root.render(
-      <div>Sig App</div>
+      <div>Welcome to Sig App</div>
     );
   }
 }

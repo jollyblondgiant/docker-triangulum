@@ -2,4 +2,4 @@
   (:require [triangulum.views :refer [render-page]]))
 
 (def routes
-  {[:get "/" {:handler (render-page ("/"))}]})
+  {[:get "/"] {:handler (render-page ("/main"))}})
