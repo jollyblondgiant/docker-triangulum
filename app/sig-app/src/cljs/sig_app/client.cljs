@@ -2,4 +2,4 @@
   (:require [reagent.dom :refer [render]]))
 
 (defn ^:export init [params session]
-  (render [] (js/document.getElementById "sig-app")))
+  (render [:div "Welcome to SIG!"] (js/document.getElementById "app")))

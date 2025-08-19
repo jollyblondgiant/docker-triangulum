@@ -7,8 +7,8 @@
  :triangulum.server/log-dir ""
    
  :triangulum.handler/routing-tables [sig-app.routing/routes]
+ ;; :triangulum.server/handler sig-app.handlers/ring-handler
  :triangulum.server/handler     triangulum.handler/authenticated-routing-handler
-
  :triangulum.handler/not-found-handler     triangulum.views/not-found-page
  :triangulum.handler/redirect-handler      sig-app.handlers/redirect-handler
  :triangulum.handler/route-authenticator   sig-app.handlers/route-authenticator
@@ -17,6 +17,6 @@
  :triangulum.views/title {:en "SIG APP"}
  :triangulum.views/description {:en ""}
  :triangulum.views/js-init "src/js/main.jsx"
-;; :triangulum.views/cljs-init sig-app.client.init
+ ;; :triangulum.views/cljs-init sig-app.client.init
 
  }
