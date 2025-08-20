@@ -13,5 +13,6 @@
         org.clojure/clojurescript {:mvn/version "1.11.132"}}
  :aliases {:server ;; clojure -M:server start
            {:main-opts ["-m" "triangulum.server"]}
+           :production       {:jvm-opts ["-XX:MaxRAMPercentage=90" "-XX:+PrintFlagsFinal"]}
            :figwheel ;; clojure -M:figwheel
            {:main-opts  ["-m" "figwheel.main" "-b" "compile-dev" "-r"]}}}
