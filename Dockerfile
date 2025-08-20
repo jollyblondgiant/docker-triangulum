@@ -16,26 +16,26 @@ RUN clojure -M:production:server start -m prod -p 8080
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
-WORKDIR /app
+WORKDIR /app/sig-app
 
 # Install nginx
 RUN apk add --no-cache nginx
 
 # Copy built artifacts
-COPY --from=frontend-builder /app/dist ./dist
-COPY --from=backend-builder /app/target/app.jar ./app.jar
+COPY --from=frontend-builder /app/sig-app/dist ./dist
+COPY --from=backend-builder /app/sig-app/target/app.jar ./app.jar
 
 # Copy nginx configuration
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/sites-available/sig-app.conf /etc/nginx/sites-available/sig-app.conf
+COPY nginx/nginx.conf /nginx.conf
+COPY nginx/sites-available/sig-app.conf s/ig-app.conf
 
 # Create nginx site symlink
 RUN ln -s /etc/nginx/sites-available/sig-app.conf /etc/nginx/sites-enabled/sig-app.conf && \
     rm -f /etc/nginx/sites-enabled/default
 
 # Create startup script
-COPY entrypoint.sh /app/sig-app.sh
-RUN chmod +x /app/sig-app.sh
+COPY sig-app.sh /sig-app.sh
+RUN chmod +x /sig-app.sh
 
 EXPOSE 8080
 
