@@ -1,42 +1,29 @@
-# Build stage for frontend
-FROM node:18-alpine as frontend-builder
-WORKDIR /app/sig-app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run vite-prod
+ARG APP_CMD="clojure -M:production:server start -m prod"
+ARG APP_PORT=8080
+ARG APP_SOURCE_PATH=../app/my-app
 
-# Build stage for backend
-FROM clojure:temurin-17-tools-deps-alpine as backend-builder
-WORKDIR /app/sig-app
-COPY deps.edn .
-RUN clojure -P #parse deps but don't execute
-COPY . .
-RUN clojure -M:production:server start -m prod -p 8080
+FROM clojure:temurin-17-tools-deps-alpine as builder
+
+WORKDIR /app
+
+# Copy application code
+COPY ${APP_SOURCE_PATH} .
+
+# Install dependencies and build
+RUN clojure -P && \
+    npm install && \
+    npm run vite-prod
 
 # Runtime stage
-FROM eclipse-temurin:17-jre-alpine
-WORKDIR /app/sig-app
+FROM clojure:temurin-17-tools-deps-alpine
 
-# Install nginx
-RUN apk add --no-cache nginx
+WORKDIR /app
 
-# Copy built artifacts
-COPY --from=frontend-builder /app/sig-app/dist ./dist
-COPY --from=backend-builder /app/sig-app/target/app.jar ./app.jar
+# Copy built app
+COPY --from=builder /app/ .
 
-# Copy nginx configuration
-COPY nginx/nginx.conf /nginx.conf
-COPY nginx/sites-available/sig-app.conf s/ig-app.conf
+EXPOSE ${APP_PORT}
 
-# Create nginx site symlink
-RUN ln -s /etc/nginx/sites-available/sig-app.conf /etc/nginx/sites-enabled/sig-app.conf && \
-    rm -f /etc/nginx/sites-enabled/default
+CMD ${APP_CMD} -p ${APP_PORT}
 
-# Create startup script
-COPY sig-app.sh /sig-app.sh
-RUN chmod +x /sig-app.sh
 
-EXPOSE 8080
-
-ENTRYPOINT ["/app/sig-app.sh"]

@@ -4,3 +4,5 @@ app/sig-app/dist/
 app/sig-app/.*
 app/sig-app/package-lock.json
 app/sig-app/pnpm-lock.yaml
+.env
+*.bak
