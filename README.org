@@ -1,0 +1,61 @@
+Most of the Setup is done in .env.
+cp example.env .env
+
+# Build images and start everything
+docker-compose --profile blue --profile green up -d --build
+
+# Or separately:
+docker-compose --profile blue --profile green build
+docker-compose --profile blue --profile green up -d
+
+# Start just blue (production)
+docker-compose --profile blue up -d --build
+
+# Start just green (candidate)  
+docker-compose --profile green up -d --build
+
+# See running containers
+docker-compose ps
+
+# Check logs
+docker-compose logs blue
+docker-compose logs green
+docker-compose logs nginx
+
+# Test the applications
+curl http://localhost:8081  # Blue
+curl http://localhost:8082  # Green
+curl http://localhost       # Through nginx
+
+# Restart everything
+docker-compose restart
+
+# Restart specific service
+docker-compose restart blue
+
+# Stop everything
+docker-compose down
+
+# Stop but keep volumes
+docker-compose down --remove-orphans
+
+# Rebuild and restart a specific service
+docker-compose up -d --build blue
+
+# Deploy new version to green
+docker-compose up -d --build green
+
+
+# Deploy code to environments
+./scripts/deploy-blue.sh release-0.1.0
+./scripts/deploy-green.sh release-0.2.0
+
+# Route traffic between environments
+./scripts/route-to-blue.sh
+./scripts/route-to-green.sh
+
+# Complete release deployment
+./scripts/deploy-release.sh release-0.3.0 green
+
+# Check status
+./scripts/status.sh
