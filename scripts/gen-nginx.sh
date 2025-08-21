@@ -19,18 +19,18 @@ server {
     client_max_body_size 500M;
 
     location / {
-        proxy_pass http://public:8081;
+        proxy_pass http://blue:8081;
 	proxy_set_header Host $host;
 	proxy_set_header X-Real-IP $remote-addr;
 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 	proxy_set_header X-Forwarded-Proto $scheme;
 
 	proxy_intercept_errors on;
-	error_page 500 502 503 504 = @maintenance;
+	error_page 500 502 503 504 = @green;
     }
 
-    location @candidate_fallback {
-        proxy_pass http://candidate:8082;
+    location @green {
+        proxy_pass http://green:8082;
 	proxy_set_header Host $host;
 	proxy_set_header X-Real-IP $remote-addr;
 	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
