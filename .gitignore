@@ -6,3 +6,4 @@ app/sig-app/package-lock.json
 app/sig-app/pnpm-lock.yaml
 .env
 *.bak
+ssl/
