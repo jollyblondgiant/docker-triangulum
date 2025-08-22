@@ -38,8 +38,6 @@ services:
       dockerfile: Dockerfile
       args:
         - APP_PORT=8081
-        - APP_CMD=${APP_CMD}
-        - APP_SOURCE_PATH=${APP_SOURCE_PATH}
     environment:
       - APP_PORT=8081
     networks:
