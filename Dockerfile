@@ -11,6 +11,7 @@ FROM clojure:temurin-17-tools-deps-alpine AS clojure
 WORKDIR /app
 ARG GIT_BRANCH=main
 ARG APP_PORT=8080
+
 ARG APP_SOURCE_PATH=../app/sig-app
 COPY ${APP_SOURCE_PATH}/deps.edn ./
 RUN clojure -P

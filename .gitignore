@@ -1,9 +1,4 @@
-app/sig-app/target/
-app/sig-app/node_modules/
-app/sig-app/dist/
-app/sig-app/.*
-app/sig-app/package-lock.json
-app/sig-app/pnpm-lock.yaml
 .env
 *.bak
 ssl/
+app/*

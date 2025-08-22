@@ -1,11 +1,11 @@
 #!/bin/bash
-BRANCH=${1:-$GREEN_BRANCH}
-
-echo "📦 Deploying code to GREEN: $BRANCH"
 
 set -a
 source .env
 set +a
+BRANCH=${1:-$GREEN_BRANCH}
+
+echo "📦 Deploying code to GREEN: $BRANCH"
 
 git -C .. fetch origin
 git -C .. checkout $BRANCH
