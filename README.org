@@ -2,25 +2,25 @@ Most of the Setup is done in .env.
 cp example.env .env
 
 # Build images and start everything
-docker-compose --profile blue --profile green up -d --build
+docker compose --profile blue --profile green up -d --build
 
 # Or separately:
-docker-compose --profile blue --profile green build
-docker-compose --profile blue --profile green up -d
+docker compose --profile blue --profile green build
+docker compose --profile blue --profile green up -d
 
 # Start just blue (production)
-docker-compose --profile blue up -d --build
+docker compose --profile blue up -d --build
 
 # Start just green (candidate)  
-docker-compose --profile green up -d --build
+docker compose --profile green up -d --build
 
 # See running containers
-docker-compose ps
+docker compose ps
 
 # Check logs
-docker-compose logs blue
-docker-compose logs green
-docker-compose logs nginx
+docker compose logs blue
+docker compose logs green
+docker compose logs nginx
 
 # Test the applications
 curl http://localhost:8081  # Blue
@@ -28,22 +28,22 @@ curl http://localhost:8082  # Green
 curl http://localhost       # Through nginx
 
 # Restart everything
-docker-compose restart
+docker compose restart
 
 # Restart specific service
-docker-compose restart blue
+docker compose restart blue
 
 # Stop everything
-docker-compose down
+docker compose down
 
 # Stop but keep volumes
-docker-compose down --remove-orphans
+docker compose down --remove-orphans
 
 # Rebuild and restart a specific service
-docker-compose up -d --build blue
+docker compose up -d --build blue
 
 # Deploy new version to green
-docker-compose up -d --build green
+docker compose up -d --build green
 
 
 # Deploy code to environments

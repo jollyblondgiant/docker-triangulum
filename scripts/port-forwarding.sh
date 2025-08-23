@@ -13,7 +13,7 @@ else
     exit 1
 fi
 
-docker-compose exec nginx sh -c "
+docker compose exec nginx sh -c "
     export CURRENT_PRODUCTION=$TARGET
     envsubst '\$CURRENT_PRODUCTION < /etc/nginx/template.conf > /etc/nginx/conf.d/default.conf
     nginx -s reload
