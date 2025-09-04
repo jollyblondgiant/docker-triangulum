@@ -59,3 +59,66 @@ docker compose up -d --build green
 
 # Check status
 ./scripts/status.sh
+
+
+> Nginx is disabled on host machine.
+
+> 'app' folder is empty.
+
+> run command to build images
+  - ./scripts/start.sh
+
+> while that's building, let's take a look at the pertinent configs:
+
+> configurable options (.env)
+  - APP_CMD: a string representing a shell script to start your app. In our example, we are using a vite/triangulum app.
+  - GIT_REPO: the app we build is a configurable parameter. we use this value to rebuild the app on deployment, given a particular branch name
+  - BLUE_BRANCH, GREEN_BRANCH: the names of the default branches to build to. it's fine to keep these the same for now.
+  - APP_NAME: names the subdir in the /app folder to which the app is built.
+  - APP_PORT: the port number to expose via nginx.
+
+> let's take a look at the Dockerfile:
+  - It really just runs the commands to build the app again and expose it to the given port.
+
+> docker-compose.yml:
+  - this file is doing a little bit more significant heavy-lifting. It feeds the environment variables from .env to Docker to build the images correctly.
+  - this is also where nginx is configured to overwrite its port-forwarding.
+  - in this example, we define 8081 and 8082 as the blue and green ports. in the future, we can perhaps move these out to .env as well.
+
+> pertinent nginx/*.conf files:
+  - nginx.conf is the normal wrapper. nothing fun here yet.
+  - template.conf is where the magic happens. 'template' as in 'this is going to keep getting rewritten' because here is where proxy_pass forwards 8080 to 8081/2. This file gets copied to the 'nginx' image as its 'default.conf'.
+
+> pertinent ./scripts:
+  - start.sh initializes the services.
+  - stop.sh will kill everything-- don't use it, probably.
+  - current-routing.sh will tell you which server (green/blue) is pointing to 8080.
+  - deploy-green.sh (deploy-blue.sh) takes deploys a new branch to the given server. takes the branch name as a parameter.
+  - release-green.sh (release-blue.sh) rewrites the current nginx config to point to the given port, then reloads nginx.
+
+> check ports.
+
+> 8080 is public, 8081 is (default) blue, 8082 is (default) green.
+
+> update the branch on 'green' to serve up code in branch 'red':
+  - ./scripts/deploy-green.sh red
+
+> note how, although 8082 is now not responding, 8080 (and 8081) are uninterrupted.
+
+> after a minute, green has now updated and we can view it on port 8082.
+
+> switch over nginx's port forwarding:
+  - ./scripts/release-green.sh
+
+> this usually doesn't take near as long as deploying, so the user's experience is more seamless.
+
+> check port forwarding:
+  - ./scripts/current-routing.sh
+
+> for oops and giggles, let's update the code on 'blue'
+  - ./scripts/deploy-blue.sh 'green'
+
+> note again that, while 8081 is arrested redeploying, 8080 is not.
+
+> once blue is up again, let's switch it back over:
+  - ./scripts/release-blue.sh
